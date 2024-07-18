@@ -12,10 +12,17 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Uid\Uuid;
+use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
+#[OA\Schema(
+    title: "Game",
+    description: "Represents a game of tic-tac-toe.",
+    required: ["status", "level", "board", "players"]
+)]
 class Game
 {
     public const BOARD_INDEX = 0;
@@ -25,6 +32,11 @@ class Game
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[OA\Property(
+        description: 'The unique identifier of the game.',
+        type: 'uuid'
+    )]
+    #[Groups(['game:read', 'game:write'])]
     private Uuid $id;
 
     #[ORM\Column(type: Types::STRING, nullable: false, enumType: GameStatusEnum::class)]
@@ -35,6 +47,17 @@ class Game
         GameStatusEnum::WON,
         GameStatusEnum::TIE
     ])]
+    #[OA\Property(
+        description: 'The status of the game.',
+        type: 'string',
+        enum: [
+            GameStatusEnum::NEW,
+            GameStatusEnum::ONGOING,
+            GameStatusEnum::WON,
+            GameStatusEnum::TIE
+        ]
+    )]
+    #[Groups(['game:read'])]
     private GameStatusEnum $status;
 
     #[ORM\Column(type: Types::STRING, nullable: false, enumType: GameLevelEnum::class)]
@@ -43,13 +66,37 @@ class Game
         GameLevelEnum::NEWBIE,
         GameLevelEnum::GOOD
     ])]
+    #[OA\Property(
+        description: 'The level of the game.',
+        type: 'string',
+        enum: [
+            GameLevelEnum::NEWBIE,
+            GameLevelEnum::GOOD
+        ]
+    )]
+    #[Groups(['game:read'])]
     private GameLevelEnum $level;
 
     #[ORM\Column(type: Types::ARRAY)]
     #[Assert\NotNull]
+    #[Assert\Count(
+        min: self::BOARD_SIZE,
+        max: self::BOARD_SIZE
+    )]
+    #[OA\Property(
+        description: 'The board of the game.',
+        type: 'array',
+        example: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    )]
+    #[Groups(['game:read', 'game:write'])]
     private array $board = [];
 
     #[ORM\Column(nullable: true)]
+    #[OA\Property(
+        description: 'The winner of the game.',
+        type: 'boolean'
+    )]
+    #[Groups(['game:read'])]
     private ?bool $winner = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
@@ -66,12 +113,28 @@ class Game
         value: 2,
     )]
     // #[CheckPlayerUpdate]
+    #[OA\Property(
+        description: 'The number of players in the game.',
+        type: 'integer'
+    )]
+    #[Groups(['game:read', 'game:write'])]
     private ?int $players = null;
 
     #[ORM\Column(nullable: true)]
+    #[OA\Property(
+        description: 'The date and time when the game was completed.',
+        type: 'string',
+        format: 'date-time'
+    )]
+    #[Groups(['game:read'])]
     private ?DateTimeImmutable $gameCompletedAt = null;
 
     #[ORM\Column]
+    #[OA\Property(
+        description: 'The date and time when the game was created.',
+        type: 'string',
+        format: 'date-time'
+    )]
     private DateTimeImmutable $createdAt;
 
     /**

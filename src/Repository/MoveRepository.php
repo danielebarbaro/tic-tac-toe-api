@@ -16,6 +16,13 @@ class MoveRepository extends ServiceEntityRepository
         parent::__construct($registry, Move::class);
     }
 
+    public function save(Move $move): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($move);
+        $entityManager->flush();
+    }
+
     //    /**
     //     * @return Move[] Returns an array of Move objects
     //     */

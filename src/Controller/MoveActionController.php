@@ -8,6 +8,7 @@ use App\Enum\GamePlayerEnum;
 use App\Repository\GameRepository;
 use App\Repository\MoveRepository;
 use App\Service\CheckMoveService;
+use App\Service\GameStateMachineService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,19 +24,22 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 class MoveActionController extends AbstractController
 {
     private GameRepository $gameRepository;
+    private GameStateMachineService $gameStateMachineService;
     private MoveRepository $moveRepository;
     private CheckMoveService $checkMoveService;
 
     public function __construct(
         CheckMoveService $checkMoveService,
+        GameStateMachineService $gameStateMachineService,
         GameRepository $gameRepository,
         MoveRepository $moveRepository
     ) {
         $this->checkMoveService = $checkMoveService;
+        $this->gameStateMachineService = $gameStateMachineService;
         $this->gameRepository = $gameRepository;
         $this->moveRepository = $moveRepository;
     }
-
+    
     #[OA\Post(
         path: '/games/{game}/moves',
         summary: 'A move in the game',
@@ -90,6 +94,8 @@ class MoveActionController extends AbstractController
 
         $player = $requestBody['player'];
         $position = $requestBody['position'];
+
+        $this->gameStateMachineService->execute($game);
 
         $move = new Move(
             $game,

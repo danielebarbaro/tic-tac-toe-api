@@ -5,6 +5,7 @@ namespace App\EventListener;
 // src/EventListener/ExceptionListener.php
 namespace App\EventListener;
 
+use App\Exception\GameFinishedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -26,6 +27,7 @@ class ExceptionListener
         $errors = [];
 
         switch ($exception) {
+            case $exception instanceof GameFinishedException:
             case $exception instanceof HttpExceptionInterface:
                 $statusCode = $exception->getStatusCode();
                 $exception->getMessage();

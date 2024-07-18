@@ -46,7 +46,6 @@ Visit http://localhost:8000/api/doc to view the API documentation.
 ![](swagger.png)
 
 
-
 ## Test workflow
  - call POST /api/game to start a new game
  - call POST /api/game/{id}/moves to play a move in the game
@@ -61,7 +60,23 @@ or run the tests using the command below.
 
 ## Scratchpad Notes
 
-Routes:
+Board [0, 0, 0, 0, 0, 0, 0, 0, 0]:  
+    - 3x3 grid  
+    - 9 cells  
+    - 3 rows  
+    - 3 columns  
+    - 2 diagonals  
+
+```
+1 | 2 | 3
+---------
+4 | 5 | 6
+---------
+7 | 8 | 9
+```
+
+
+### Routes:
  - POST /api/game
  - PATCH /api/game/{id}
  - GET /api/game/{id}

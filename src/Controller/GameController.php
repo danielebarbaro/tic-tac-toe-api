@@ -70,6 +70,11 @@ class GameController extends AbstractController
     #[Route('/games/{id}', name: 'api_game', methods: ['GET'])]
     public function show(Game $game): JsonResponse
     {
-        return $this->json($game);
+        return $this->json(
+            $game,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'game:read']
+        );
     }
 }

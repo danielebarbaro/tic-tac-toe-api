@@ -112,7 +112,7 @@ class Game
     #[Assert\LessThanOrEqual(
         value: 2,
     )]
-    // #[CheckPlayerUpdate]
+    #[CheckPlayerUpdate]
     #[OA\Property(
         description: 'The number of players in the game.',
         type: 'integer'

@@ -43,17 +43,30 @@ an API. The requirements are as follows:
 ## API
 Visit http://localhost:8000/api/doc to view the API documentation.
 
+![](swagger.png)
+
+
+
+## Test workflow
+ - call POST /api/game to start a new game
+ - call POST /api/game/{id}/moves to play a move in the game
+
+or use the API documentation to test the endpoints.  
+or run the tests using the command below.  
+
+```bash
+  php bin/phpunit
+```
+![](tests/results.png)
+
 ## Scratchpad Notes
 
 Routes:
  - POST /api/game
  - PATCH /api/game/{id}
  - GET /api/game/{id}
- - GET /api/game/{id}/board
- - GET /api/game/{id}/status
- - GET /api/game/{id}/winner
 
  - POST /api/game/{id}/moves
  - GET /api/game/{id}/moves
- - GET /api/game/{id}/moves ?player
+ - GET /api/game/{id}/moves/{Id}
  

@@ -30,11 +30,11 @@ class ExceptionListener
             case $exception instanceof GameFinishedException:
             case $exception instanceof HttpExceptionInterface:
                 $statusCode = $exception->getStatusCode();
-                $exception->getMessage();
+                $message = $exception->getMessage();
                 break;
             case $exception instanceof NotFoundHttpException:
                 $statusCode = Response::HTTP_NOT_FOUND;
-                $exception->getMessage();
+                $message = $exception->getMessage();
                 break;
             case $exception instanceof ValidationFailedException:
                 $statusCode = Response::HTTP_UNPROCESSABLE_ENTITY;

@@ -15,11 +15,10 @@ class GameStateMachineService
      */
     public function execute(Game $game): void
     {
-        switch ($game->getStatus()) {
-            case GameStatusEnum::TIE:
-                throw new HttpException('Game is already over', Response::HTTP_BAD_REQUEST);
-            case GameStatusEnum::WON:
-                throw new GameFinishedException('Game winner is already set', Response::HTTP_BAD_REQUEST);
+        if ($game->getStatus() === GameStatusEnum::TIE) {
+            throw new GameFinishedException('Game is already over', Response::HTTP_BAD_REQUEST);
+        } elseif ($game->getStatus() == GameStatusEnum::WON) {
+            throw new GameFinishedException('Game winner is already set', Response::HTTP_BAD_REQUEST);
         }
     }
 }

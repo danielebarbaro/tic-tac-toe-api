@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Enum\GamePlayerEnum;
 use App\Enum\GameStatusEnum;
 use App\Repository\MoveRepository;
+use App\Validator\CheckMoves;
 use App\Validator\CheckValidPosition;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
@@ -64,6 +65,7 @@ class Move
         description: 'The player who made the move.',
         type: 'integer'
     )]
+    #[CheckMoves]
     #[Groups(['move:read'])]
     private GamePlayerEnum $player;
 

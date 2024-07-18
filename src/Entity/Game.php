@@ -208,7 +208,7 @@ class Game
         return $this;
     }
 
-    public function isWinner(): ?GamePlayerEnum
+    public function getWinner(): ?GamePlayerEnum
     {
         return $this->winner;
     }

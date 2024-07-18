@@ -39,7 +39,10 @@ class MoveActionController extends AbstractController
         $this->gameRepository = $gameRepository;
         $this->moveRepository = $moveRepository;
     }
-    
+
+    /**
+     * @throws \HttpException
+     */
     #[OA\Post(
         path: '/games/{game}/moves',
         summary: 'A move in the game',
@@ -95,7 +98,7 @@ class MoveActionController extends AbstractController
         $player = $requestBody['player'];
         $position = $requestBody['position'];
 
-        $this->gameStateMachineService->execute($game);
+       $this->gameStateMachineService->execute($game);
 
         $move = new Move(
             $game,

@@ -25,8 +25,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Game
 {
-    public const BOARD_INDEX = 0;
+    public const BOARD_INDEX = 1;
     public const BOARD_SIZE = 9;
+    public const MAX_PLAYER_ONE_MOVES = 5;
+    public const MAX_PLAYER_TWO_MOVES = 4;
 
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
@@ -153,7 +155,7 @@ class Game
         $this->moves = new ArrayCollection();
 
         $this->board = array_fill(
-            self::BOARD_INDEX,
+            0,
             self::BOARD_SIZE,
             0);
 
@@ -269,5 +271,17 @@ class Game
         }
 
         return $this;
+    }
+
+    public function canPlay(): bool
+    {
+        return
+            $this->getStatus() === GameStatusEnum::ONGOING &&
+            ($this->getMoves()->isEmpty() || count($this->getMoves()) <= Game::BOARD_SIZE);
+    }
+
+    public function isBoardFull(): bool
+    {
+        return count(array_filter($this->getBoard())) === Game::BOARD_SIZE;
     }
 }

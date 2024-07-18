@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Enum\GamePlayerEnum;
+use App\Enum\GameStatusEnum;
 use App\Repository\MoveRepository;
+use App\Validator\CheckValidPosition;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,33 +50,27 @@ class Move
         description: 'The position of the move on the board.',
         type: 'integer'
     )]
+    #[CheckValidPosition]
     #[Groups(['move:read'])]
     private int $position;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, enumType: GamePlayerEnum::class)]
     #[Assert\NotNull]
-    #[Assert\Positive]
     #[Assert\Choice([
-        1,
-        2,
+        GamePlayerEnum::PLAYER_ONE,
+        GamePlayerEnum::PLAYER_TWO,
     ])]
-    #[Assert\GreaterThanOrEqual(
-        value: 1,
-    )]
-    #[Assert\LessThanOrEqual(
-        value: 2,
-    )]
     #[OA\Property(
         description: 'The player who made the move.',
         type: 'integer'
     )]
     #[Groups(['move:read'])]
-    private int $player;
+    private GamePlayerEnum $player;
 
     #[ORM\Column]
     private DateTimeImmutable $createdAt;
 
-    public function __construct(Game $game, int $position, int $player)
+    public function __construct(Game $game, int $position, GamePlayerEnum $player)
     {
         $this->game = $game;
         $this->position = $position;
@@ -92,35 +89,14 @@ class Move
         return $this->game;
     }
 
-    public function setGame(?Game $game): static
-    {
-        $this->game = $game;
-
-        return $this;
-    }
-
     public function getPosition(): ?int
     {
         return $this->position;
     }
 
-    public function setPosition(int $position): static
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    public function getPlayer(): ?int
+    public function getPlayer(): GamePlayerEnum
     {
         return $this->player;
-    }
-
-    public function setPlayer(int $player): static
-    {
-        $this->player = $player;
-
-        return $this;
     }
 
     public function getCreatedAt(): DateTimeImmutable

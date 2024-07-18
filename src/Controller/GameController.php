@@ -40,7 +40,12 @@ class GameController extends AbstractController
     public function index(): JsonResponse
     {
         $games = $this->gameRepository->findAll();
-        return $this->json($games);
+        return $this->json(
+            $games,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'game:read']
+        );
     }
 
     #[OA\Get(

@@ -40,10 +40,10 @@ class CreateGameController extends AbstractController
             )
         ]
     )]
-    #[Route('/games', name: 'app_create_game', methods: ['POST'])]
+    #[Route('/games', name: 'api_create_game', methods: ['POST'])]
     public function __invoke(): JsonResponse
     {
-        $game = new Game(1);
+        $game = new Game(2);
         $this->gameRepository->save($game);
 
         return $this->json(

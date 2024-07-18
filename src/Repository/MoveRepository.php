@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Game;
 use App\Entity\Move;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,6 +22,25 @@ class MoveRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $entityManager->persist($move);
         $entityManager->flush();
+    }
+
+    public function getMovesByGameIdAndPlayer(Game $game, int $player): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.game = :game')
+            ->andWhere('m.player = :player')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countMovesByGameIdAndPlayer(Game $game, int $player): int
+    {
+        return $this->createQueryBuilder('m')
+            ->select('COUNT(m.id)')
+            ->andWhere('m.game = :game')
+            ->andWhere('m.player = :player')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     //    /**

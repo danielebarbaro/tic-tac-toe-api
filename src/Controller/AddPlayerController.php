@@ -83,7 +83,7 @@ class AddPlayerController extends AbstractController
 
         $errors = $validator->validate($game);
         if (count($errors) > 0) {
-            throw new ValidationFailedException( 'player', $errors);
+            throw new ValidationFailedException( 'games', $errors);
         }
 
         $this->gameRepository->save($game);

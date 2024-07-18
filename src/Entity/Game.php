@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Enum\GameLevelEnum;
+use App\Enum\GamePlayerEnum;
 use App\Enum\GameStatusEnum;
 use App\Repository\GameRepository;
 use App\Validator\CheckPlayerUpdate;
@@ -93,13 +94,18 @@ class Game
     #[Groups(['game:read', 'game:write'])]
     private array $board = [];
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, enumType: GamePlayerEnum::class)]
+    #[Assert\Choice([
+        1,
+        2
+    ])]
+
     #[OA\Property(
         description: 'The winner of the game.',
         type: 'boolean'
     )]
     #[Groups(['game:read'])]
-    private ?bool $winner = null;
+    private ?GamePlayerEnum $winner = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     #[Assert\NotNull]
@@ -120,7 +126,7 @@ class Game
         type: 'integer'
     )]
     #[Groups(['game:read', 'game:write'])]
-    private ?int $players = null;
+    private int $players;
 
     #[ORM\Column(nullable: true)]
     #[OA\Property(
@@ -202,12 +208,12 @@ class Game
         return $this;
     }
 
-    public function isWinner(): ?bool
+    public function isWinner(): ?GamePlayerEnum
     {
         return $this->winner;
     }
 
-    public function setWinner(?bool $winner): static
+    public function setWinner(?GamePlayerEnum $winner): static
     {
         $this->winner = $winner;
 

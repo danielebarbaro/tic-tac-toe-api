@@ -6,6 +6,7 @@ use App\Dto\MoveDto;
 use App\Entity\Game;
 use App\Entity\Move;
 use App\Enum\GamePlayerEnum;
+use App\Enum\GameStatusEnum;
 use App\Repository\GameRepository;
 use App\Repository\MoveRepository;
 
@@ -33,9 +34,18 @@ class CheckMoveService
         $player = $move->getPlayer();
 
         $board[$move->getPosition() - 1] = $player === GamePlayerEnum::PLAYER_ONE ? 1 : -1;
-        $game->setBoard($board);
 
         $winner = $this->checkWinnerService->execute($board);
+        $game->setBoard($board);
+        if (count($game->getMoves()) === 0) {
+            $game->setStatus(GameStatusEnum::ONGOING);
+        }
+
+        if ($winner !== null) {
+            $game->setStatus(GameStatusEnum::WON);
+            $game->setWinner($winner);
+            $game->setGameCompletedAt(new \DateTimeImmutable('now'));
+        }
 
         $this->gameRepository->save($game);
         $this->moveRepository->save($move);

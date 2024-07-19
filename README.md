@@ -77,11 +77,11 @@ Board [0, 0, 0, 0, 0, 0, 0, 0, 0]:
 
 
 ### Routes:
- - POST /api/game
- - PATCH /api/game/{id}
- - GET /api/game/{id}
+ - POST /api/games | payload: empty
+ - PATCH /api/games/{id} | payload: {players: 2}
+ - GET /api/games/{id}
 
- - POST /api/game/{id}/moves
- - GET /api/game/{id}/moves
- - GET /api/game/{id}/moves/{Id}
+ - POST /api/games/{id}/moves | payload: {player: 1, position: 1}
+ - GET /api/games/{id}/moves
+ - GET /api/moves/{Id}
  

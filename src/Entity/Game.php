@@ -48,7 +48,7 @@ class Game
         GameStatusEnum::NEW,
         GameStatusEnum::ONGOING,
         GameStatusEnum::WON,
-        GameStatusEnum::TIE
+        GameStatusEnum::TIE,
     ])]
     #[OA\Property(
         description: 'The status of the game.',
@@ -57,7 +57,7 @@ class Game
             GameStatusEnum::NEW,
             GameStatusEnum::ONGOING,
             GameStatusEnum::WON,
-            GameStatusEnum::TIE
+            GameStatusEnum::TIE,
         ]
     )]
     #[Groups(['game:read'])]
@@ -67,14 +67,14 @@ class Game
     #[Assert\NotNull]
     #[Assert\Choice([
         GameLevelEnum::NEWBIE,
-        GameLevelEnum::GOOD
+        GameLevelEnum::GOOD,
     ])]
     #[OA\Property(
         description: 'The level of the game.',
         type: 'string',
         enum: [
             GameLevelEnum::NEWBIE,
-            GameLevelEnum::GOOD
+            GameLevelEnum::GOOD,
         ]
     )]
     #[Groups(['game:read'])]
@@ -89,6 +89,7 @@ class Game
     #[OA\Property(
         description: 'The board of the game.',
         type: 'array',
+        items: new OA\Items(type: 'integer'),
         example: [0, 0, 0, 0, 0, 0, 0, 0, 0]
     )]
     #[Groups(['game:read', 'game:write'])]
@@ -97,9 +98,8 @@ class Game
     #[ORM\Column(nullable: true, enumType: GamePlayerEnum::class)]
     #[Assert\Choice([
         1,
-        2
+        2,
     ])]
-
     #[OA\Property(
         description: 'The winner of the game.',
         type: 'boolean'
@@ -112,7 +112,7 @@ class Game
     #[Assert\Positive]
     #[Assert\Choice([
         1,
-        2
+        2,
     ])]
     #[Assert\GreaterThanOrEqual(
         value: 1,
@@ -163,10 +163,12 @@ class Game
         $this->board = array_fill(
             0,
             self::BOARD_SIZE,
-            0);
+            0
+        );
 
         $this->createdAt = new DateTimeImmutable('now');
     }
+
     public function getId(): Uuid
     {
         return $this->id;

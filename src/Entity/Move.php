@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Enum\GamePlayerEnum;
-use App\Enum\GameStatusEnum;
 use App\Repository\MoveRepository;
 use App\Validator\CheckMoves;
 use App\Validator\CheckValidPosition;
@@ -20,7 +19,7 @@ use OpenApi\Attributes as OA;
 #[OA\Schema(
     title: "Move",
     description: "Represents a move in the game.",
-    required: ["game", "position", "player"]
+    required: ["game", "position", "player"],
 )]
 class Move
 {
@@ -30,7 +29,8 @@ class Move
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     #[OA\Property(
         description: 'The unique identifier of the move.',
-        type: 'uuid'
+        type: 'uuid',
+        format: 'uuid'
     )]
     #[Groups(['move:read'])]
     private Uuid $id;

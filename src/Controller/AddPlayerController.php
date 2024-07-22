@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Dto\PlayerUpdateDto;
 use App\Entity\Game;
 use App\Enum\GameStatusEnum;
 use App\Repository\GameRepository;
@@ -11,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
@@ -73,17 +75,17 @@ class AddPlayerController extends AbstractController
         ]
     )]
     #[Route('/games/{game}/players', name: 'api_game_add_player', methods: ['PATCH'])]
-    public function __invoke(Game $game, Request $request, ValidatorInterface $validator): JsonResponse
-    {
-        $requestBody = json_decode($request->getContent(), true);
-
-        $players = $requestBody['players'];
-        $game->setPlayers($players);
+    public function __invoke(
+        Game $game,
+        #[MapRequestPayload] PlayerUpdateDto $playerUpdateDto,
+        ValidatorInterface $validator
+    ): JsonResponse {
+        $game->setPlayers($playerUpdateDto->players);
         $game->setStatus(GameStatusEnum::ONGOING);
 
         $errors = $validator->validate($game);
         if (count($errors) > 0) {
-            throw new ValidationFailedException( 'games', $errors);
+            throw new ValidationFailedException('games', $errors);
         }
 
         $this->gameRepository->save($game);

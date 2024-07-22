@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Unit\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateMoveControllerTest extends WebTestCase
+class CreateGameControllerTest extends WebTestCase
 {
     public function testCreateGames(): void
     {

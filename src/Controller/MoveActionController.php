@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Dto\MoveCreateDto;
 use App\Entity\Game;
 use App\Entity\Move;
 use App\Enum\GamePlayerEnum;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -50,14 +52,16 @@ class MoveActionController extends AbstractController
             description: 'Details of the move',
             content: new OA\JsonContent(
                 properties: [
-                    'player' => new OA\Property(
+                    new OA\Property(
+                        property: 'player',
                         description: 'The player making the move',
                         type: 'string'
                     ),
-                    'position' => new OA\Property(
+                    new OA\Property(
+                        property: 'position',
                         description: 'The position of the move',
                         type: 'string'
-                    )
+                    ),
                 ],
                 type: 'object'
             )
@@ -69,7 +73,7 @@ class MoveActionController extends AbstractController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'integer')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -87,23 +91,21 @@ class MoveActionController extends AbstractController
             new OA\Response(
                 response: Response::HTTP_UNPROCESSABLE_ENTITY,
                 description: 'Validation failed'
-            )
+            ),
         ]
     )]
     #[Route('/games/{game}/moves', name: 'api_move_action', methods: ['POST'])]
-    public function __invoke(Game $game, Request $request, ValidatorInterface $validator): JsonResponse
-    {
-        $requestBody = json_decode($request->getContent(), true);
-
-        $player = $requestBody['player'];
-        $position = $requestBody['position'];
-
-       $this->gameStateMachineService->execute($game);
+    public function __invoke(
+        Game $game,
+        #[MapRequestPayload] MoveCreateDto $moveCreateDto,
+        ValidatorInterface $validator
+    ): JsonResponse {
+        $this->gameStateMachineService->execute($game);
 
         $move = new Move(
             $game,
-            $position,
-            GamePlayerEnum::from($player)
+            $moveCreateDto->position,
+            $moveCreateDto->player
         );
 
         $errors = $validator->validate($move);

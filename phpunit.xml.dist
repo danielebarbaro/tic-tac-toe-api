@@ -36,10 +36,9 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 
-    <extensions>
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
-        <extension class="Zenstruck\Browser\Test\BrowserExtension" />
-        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-    </extensions>
+<!--    <extensions>-->
+<!--        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />-->
+<!--        <extension class="Zenstruck\Browser\Test\BrowserExtension" />-->
+<!--    </extensions>-->
 
 </phpunit>

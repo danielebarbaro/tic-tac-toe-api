@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[OA\Schema(
+    schema: "Game",
     title: "Game",
     description: "Represents a game of tic-tac-toe.",
     required: ["status", "level", "board", "players"]

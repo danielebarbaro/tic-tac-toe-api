@@ -20,7 +20,6 @@ final class MoveCreateDto
     #[Assert\NotBlank(groups: ["move:write"])]
     #[OA\Property(
         description: "Player making the move",
-        type: "string",
         enum: ["PLAYER_ONE", "PLAYER_TWO"]
     )]
     public GamePlayerEnum $player;

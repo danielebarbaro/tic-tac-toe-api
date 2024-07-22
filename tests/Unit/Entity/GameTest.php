@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Entity;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Game;
 use App\Enum\GameLevelEnum;

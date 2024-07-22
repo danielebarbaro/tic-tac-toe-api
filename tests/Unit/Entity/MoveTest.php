@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Tests\Entity;
+namespace App\Tests\Unit\Entity;
 
 use App\Entity\Game;
 use App\Entity\Move;
-use App\Enum\GameLevelEnum;
 use App\Enum\GamePlayerEnum;
-use App\Enum\GameStatusEnum;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class MoveTest extends KernelTestCase

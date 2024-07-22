@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tests\Service;
+namespace App\Tests\Unit\Service;
 
-use App\Service\CheckMoveService;
-use App\Service\CheckWinnerService;
 use App\Entity\Game;
 use App\Entity\Move;
 use App\Enum\GamePlayerEnum;
 use App\Enum\GameStatusEnum;
+use App\Service\CheckMoveService;
+use App\Service\CheckWinnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

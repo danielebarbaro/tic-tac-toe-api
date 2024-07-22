@@ -47,7 +47,7 @@ class ExceptionListener
         }
 
         $error = [
-            'message' => $this->debug ? $message : "General error.",
+            'message' => $this->debug ? $message : 'General error.',
             'errors' => $errors,
             'code' => $statusCode,
         ];

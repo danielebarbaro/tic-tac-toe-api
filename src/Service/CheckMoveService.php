@@ -9,6 +9,7 @@ use App\Enum\GamePlayerEnum;
 use App\Enum\GameStatusEnum;
 use App\Repository\GameRepository;
 use App\Repository\MoveRepository;
+use DateTimeImmutable;
 
 class CheckMoveService
 {
@@ -59,13 +60,13 @@ class CheckMoveService
 
         if (count($game->getMoves()) === Game::BOARD_SIZE - 1 && $winner === null) {
             $game->setStatus(GameStatusEnum::TIE);
-            $game->setGameCompletedAt(new \DateTimeImmutable('now'));
+            $game->setGameCompletedAt(new DateTimeImmutable('now'));
         }
 
         if ($winner !== null) {
             $game->setStatus(GameStatusEnum::WON);
             $game->setWinner($winner);
-            $game->setGameCompletedAt(new \DateTimeImmutable('now'));
+            $game->setGameCompletedAt(new DateTimeImmutable('now'));
         }
     }
 

@@ -20,7 +20,7 @@ class CheckMovesValidator extends ConstraintValidator
             return;
         }
 
-        if ($lastMove !== false  && $lastMove->getPlayer() === $move->getPlayer()) {
+        if ($lastMove !== false && $lastMove->getPlayer() === $move->getPlayer()) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->addViolation();

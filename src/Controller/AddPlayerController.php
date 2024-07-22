@@ -6,21 +6,17 @@ use App\Dto\PlayerUpdateDto;
 use App\Entity\Game;
 use App\Enum\GameStatusEnum;
 use App\Repository\GameRepository;
-use App\Validator\CheckPlayerUpdate;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
-use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
-#[Route("/api", "api_")]
+#[Route('/api', 'api_')]
 #[OA\Tag(name: 'Games')]
 class AddPlayerController extends AbstractController
 {
@@ -77,7 +73,8 @@ class AddPlayerController extends AbstractController
     #[Route('/games/{game}/players', name: 'api_game_add_player', methods: ['PATCH'])]
     public function __invoke(
         Game $game,
-        #[MapRequestPayload] PlayerUpdateDto $playerUpdateDto,
+        #[MapRequestPayload]
+        PlayerUpdateDto $playerUpdateDto,
         ValidatorInterface $validator
     ): JsonResponse {
         $game->setPlayers($playerUpdateDto->players);

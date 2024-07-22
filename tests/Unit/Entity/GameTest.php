@@ -13,10 +13,10 @@ class GameTest extends KernelTestCase
     {
         $game = new Game(2);
 
-        $this->assertSame(GameStatusEnum::NEW,$game->getStatus());
-        $this->assertSame( GameLevelEnum::NEWBIE,$game->getLevel());
-        $this->assertSame(GameStatusEnum::NEW,$game->getStatus());
-        $this->assertSame(2,$game->getPlayers());
-        $this->assertSame([0,0,0,0,0,0,0,0,0], $game->getBoard());
+        $this->assertSame(GameStatusEnum::NEW, $game->getStatus());
+        $this->assertSame(GameLevelEnum::NEWBIE, $game->getLevel());
+        $this->assertSame(GameStatusEnum::NEW, $game->getStatus());
+        $this->assertSame(2, $game->getPlayers());
+        $this->assertSame([0, 0, 0, 0, 0, 0, 0, 0, 0], $game->getBoard());
     }
 }

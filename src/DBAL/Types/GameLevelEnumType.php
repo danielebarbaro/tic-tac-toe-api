@@ -8,11 +8,11 @@ use Doctrine\DBAL\Types\Type;
 
 class GameLevelEnumType extends Type
 {
-    const NAME = 'game_level_enum';
+    public const NAME = 'game_level_enum';
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        return "VARCHAR(255)";
+        return 'VARCHAR(255)';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)

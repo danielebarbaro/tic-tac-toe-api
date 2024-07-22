@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\Game;
 use App\Enum\GamePlayerEnum;
 
 class CheckWinnerService
@@ -20,7 +19,7 @@ class CheckWinnerService
 
         $range = range(0, self::MAX_ELEMENTS - 1);
 
-        /**
+        /*
          * 0,0 0,1 0,2
          * 1,0 1,1 1,2
          * 2,0 2,1 2,2

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route("/api", "api_")]
+#[Route('/api', 'api_')]
 #[OA\Tag(name: 'Moves')]
 class MoveController extends AbstractController
 {

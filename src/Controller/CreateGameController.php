@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route("/api", "api_")]
+#[Route('/api', 'api_')]
 #[OA\Tag(name: 'Games')]
 class CreateGameController extends AbstractController
 {
@@ -37,7 +37,7 @@ class CreateGameController extends AbstractController
             new OA\Response(
                 response: Response::HTTP_PRECONDITION_FAILED,
                 description: 'Invalid input'
-            )
+            ),
         ]
     )]
     #[Route('/games', name: 'api_create_game', methods: ['POST'])]

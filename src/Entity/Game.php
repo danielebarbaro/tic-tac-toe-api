@@ -20,10 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[OA\Schema(
-    schema: "Game",
-    title: "Game",
-    description: "Represents a game of tic-tac-toe.",
-    required: ["status", "level", "board", "players"]
+    schema: 'Game',
+    title: 'Game',
+    description: 'Represents a game of tic-tac-toe.',
+    required: ['status', 'level', 'board', 'players']
 )]
 class Game
 {
@@ -235,12 +235,12 @@ class Game
         return $this;
     }
 
-    public function getGameCompletedAt(): ?\DateTimeImmutable
+    public function getGameCompletedAt(): ?DateTimeImmutable
     {
         return $this->gameCompletedAt;
     }
 
-    public function setGameCompletedAt(?\DateTimeImmutable $gameCompletedAt): static
+    public function setGameCompletedAt(?DateTimeImmutable $gameCompletedAt): static
     {
         $this->gameCompletedAt = $gameCompletedAt;
 
@@ -285,8 +285,8 @@ class Game
     public function canPlay(): bool
     {
         return
-            $this->getStatus() === GameStatusEnum::ONGOING &&
-            ($this->getMoves()->isEmpty() || count($this->getMoves()) <= Game::BOARD_SIZE);
+            $this->getStatus() === GameStatusEnum::ONGOING
+            && ($this->getMoves()->isEmpty() || count($this->getMoves()) <= Game::BOARD_SIZE);
     }
 
     public function isBoardFull(): bool

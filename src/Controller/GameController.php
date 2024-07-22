@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 
-#[Route("/api", "api_")]
+#[Route('/api', 'api_')]
 #[OA\Tag(name: 'Games')]
 class GameController extends AbstractController
 {
@@ -33,13 +33,14 @@ class GameController extends AbstractController
                     type: 'array',
                     items: new OA\Items(ref: new Model(type: Game::class, groups: ['game:read']))
                 )
-            )
+            ),
         ]
     )]
     #[Route('/games', name: 'api_games', methods: ['GET'])]
     public function index(): JsonResponse
     {
         $games = $this->gameRepository->findAll();
+
         return $this->json(
             $games,
             Response::HTTP_OK,
@@ -58,7 +59,7 @@ class GameController extends AbstractController
                 in: 'path',
                 required: true,
                 schema: new OA\Schema(type: 'uuid')
-            )
+            ),
         ],
         responses: [
             new OA\Response(
@@ -69,7 +70,7 @@ class GameController extends AbstractController
             new OA\Response(
                 response: Response::HTTP_NOT_FOUND,
                 description: 'Game not found'
-            )
+            ),
         ]
     )]
     #[Route('/games/{id}', name: 'api_game', methods: ['GET'])]

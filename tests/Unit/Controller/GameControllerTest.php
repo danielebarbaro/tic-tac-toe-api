@@ -15,7 +15,7 @@ class GameControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertResponseFormatSame("json");
+        $this->assertResponseFormatSame('json');
     }
 
     public function testGame(): void
@@ -26,12 +26,12 @@ class GameControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
-        $this->assertResponseFormatSame("json");
+        $this->assertResponseFormatSame('json');
 
         $crawler = $client->request('GET', '/api/games');
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertResponseFormatSame("json");
+        $this->assertResponseFormatSame('json');
     }
 }

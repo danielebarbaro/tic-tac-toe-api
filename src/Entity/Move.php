@@ -17,10 +17,10 @@ use OpenApi\Attributes as OA;
 
 #[ORM\Entity(repositoryClass: MoveRepository::class)]
 #[OA\Schema(
-    schema: "Move",
-    title: "Move",
-    description: "Represents a move in the game.",
-    required: ["game", "position", "player"],
+    schema: 'Move',
+    title: 'Move',
+    description: 'Represents a move in the game.',
+    required: ['game', 'position', 'player'],
 )]
 class Move
 {
@@ -64,7 +64,7 @@ class Move
     ])]
     #[OA\Property(
         description: 'The player who made the move.',
-        enum: ["PLAYER_ONE", "PLAYER_TWO"]
+        enum: ['PLAYER_ONE', 'PLAYER_TWO']
     )]
     #[CheckMoves]
     #[Groups(['move:read'])]

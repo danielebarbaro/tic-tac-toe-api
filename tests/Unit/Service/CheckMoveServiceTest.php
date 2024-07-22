@@ -67,7 +67,6 @@ class CheckMoveServiceTest extends KernelTestCase
         $this->assertEquals([1, 0, 0, 0, 0, 0, 0, 0, 0], $updatedGame->getBoard());
     }
 
-
     public function testExecuteUpdatesStatusToWon()
     {
         $game = new Game(2);

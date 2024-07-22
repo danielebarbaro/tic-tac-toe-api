@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Dto\MoveCreateDto;
 use App\Entity\Game;
 use App\Entity\Move;
-use App\Enum\GamePlayerEnum;
 use App\Repository\GameRepository;
 use App\Repository\MoveRepository;
 use App\Service\CheckMoveService;
 use App\Service\GameStateMachineService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,8 +18,9 @@ use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use OpenApi\Attributes as OA;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use HttpException;
 
-#[Route("/api", "api_")]
+#[Route('/api', 'api_')]
 #[OA\Tag(name: 'Moves')]
 class MoveActionController extends AbstractController
 {
@@ -43,7 +42,7 @@ class MoveActionController extends AbstractController
     }
 
     /**
-     * @throws \HttpException
+     * @throws HttpException
      */
     #[OA\Post(
         path: '/games/{game}/moves',
@@ -97,7 +96,8 @@ class MoveActionController extends AbstractController
     #[Route('/games/{game}/moves', name: 'api_move_action', methods: ['POST'])]
     public function __invoke(
         Game $game,
-        #[MapRequestPayload] MoveCreateDto $moveCreateDto,
+        #[MapRequestPayload]
+        MoveCreateDto $moveCreateDto,
         ValidatorInterface $validator
     ): JsonResponse {
         $this->gameStateMachineService->execute($game);

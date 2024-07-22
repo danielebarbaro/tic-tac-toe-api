@@ -14,7 +14,6 @@ class CreateMoveControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
-        $this->assertResponseFormatSame("json");
-
+        $this->assertResponseFormatSame('json');
     }
 }

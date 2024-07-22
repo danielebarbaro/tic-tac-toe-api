@@ -12,4 +12,5 @@ return [
     Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
 ];

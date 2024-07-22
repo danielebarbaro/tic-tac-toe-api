@@ -2,6 +2,7 @@
 
 namespace App\Tests\Functional;
 
+use App\Dto\MoveCreateDto;
 use App\Enum\GamePlayerEnum;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,7 +58,19 @@ class PlayMatchTest extends WebTestCase
         ];
 
         foreach ($moves as $move) {
-            $client->request('POST', '/api/games/'.$gameId.'/moves', [], [], [], json_encode($move));
+            $moveCreateDto = new MoveCreateDto();
+            $moveCreateDto->player = $move['player'];
+            $moveCreateDto->position = $move['position'];
+
+            $client->request(
+                'POST',
+                "/api/games/{$gameId}/moves",
+                [],
+                [],
+                ['CONTENT_TYPE' => 'application/json'],
+                json_encode($moveCreateDto)
+            );
+
             $this->assertResponseIsSuccessful();
             $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
             $this->assertResponseFormatSame('json');
@@ -122,7 +135,19 @@ class PlayMatchTest extends WebTestCase
         ];
 
         foreach ($moves as $move) {
-            $client->request('POST', '/api/games/'.$gameId.'/moves', [], [], [], json_encode($move));
+            $moveCreateDto = new MoveCreateDto();
+            $moveCreateDto->player = $move['player'];
+            $moveCreateDto->position = $move['position'];
+
+            $client->request(
+                'POST',
+                "/api/games/{$gameId}/moves",
+                [],
+                [],
+                ['CONTENT_TYPE' => 'application/json'],
+                json_encode($moveCreateDto)
+            );
+            
             $this->assertResponseIsSuccessful();
             $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
             $this->assertResponseFormatSame('json');

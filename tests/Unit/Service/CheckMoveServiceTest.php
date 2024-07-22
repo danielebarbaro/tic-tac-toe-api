@@ -10,9 +10,12 @@ use App\Service\CheckMoveService;
 use App\Service\CheckWinnerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
 class CheckMoveServiceTest extends KernelTestCase
 {
+    use ResetDatabase;
+
     private mixed $entityManager;
     private CheckMoveService $checkMoveService;
     private mixed $checkWinnerService;

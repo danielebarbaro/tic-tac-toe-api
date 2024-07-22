@@ -2,9 +2,6 @@
 
 namespace App\EventListener;
 
-// src/EventListener/ExceptionListener.php
-namespace App\EventListener;
-
 use App\Exception\GameFinishedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

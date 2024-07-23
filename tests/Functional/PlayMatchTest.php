@@ -147,7 +147,7 @@ class PlayMatchTest extends WebTestCase
                 ['CONTENT_TYPE' => 'application/json'],
                 json_encode($moveCreateDto)
             );
-            
+
             $this->assertResponseIsSuccessful();
             $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
             $this->assertResponseFormatSame('json');

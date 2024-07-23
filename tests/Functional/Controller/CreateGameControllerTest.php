@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CreateGameControllerTest extends WebTestCase
 {
-    public function testCreateGames(): void
+    public function testCreateGame(): void
     {
         $client = static::createClient();
         $crawler = $client->request('POST', '/api/games');

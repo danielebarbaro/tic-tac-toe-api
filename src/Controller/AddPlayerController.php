@@ -77,14 +77,13 @@ class AddPlayerController extends AbstractController
         PlayerUpdateDto $playerUpdateDto,
         ValidatorInterface $validator
     ): JsonResponse {
-        $game->setPlayers($playerUpdateDto->players);
-        $game->setStatus(GameStatusEnum::ONGOING);
-
         $errors = $validator->validate($game);
         if (count($errors) > 0) {
             throw new ValidationFailedException('games', $errors);
         }
 
+        $game->setPlayers($playerUpdateDto->players);
+        $game->setStatus(GameStatusEnum::ONGOING);
         $this->gameRepository->save($game);
 
         return $this->json(

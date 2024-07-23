@@ -58,7 +58,13 @@ or run the tests using the command below.
 ```
 ![](tests/results.png)
 
+Coverage:
+```bash
+  php bin/phpunit --coverage-html build/coverage
+```
+
 ## Scratchpad Notes
+The board is an array of 9 cells from 1 to 9. 
 
 Board [0, 0, 0, 0, 0, 0, 0, 0, 0]:  
     - 3x3 grid  
@@ -67,6 +73,7 @@ Board [0, 0, 0, 0, 0, 0, 0, 0, 0]:
     - 3 columns  
     - 2 diagonals  
 
+Board Position mapping:   
 ```
 1 | 2 | 3
 ---------

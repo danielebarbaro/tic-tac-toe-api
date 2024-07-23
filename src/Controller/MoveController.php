@@ -40,7 +40,7 @@ class MoveController extends AbstractController
     #[Route('/games/{game}/moves', name: 'api_moves', methods: ['GET'])]
     public function index(Game $game): JsonResponse
     {
-        $moves = $this->moveRepository->findAll([
+        $moves = $this->moveRepository->findBy([
             'game' => $game,
         ]);
 

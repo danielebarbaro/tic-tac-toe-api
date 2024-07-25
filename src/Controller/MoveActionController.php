@@ -93,7 +93,7 @@ class MoveActionController extends AbstractController
             ),
         ]
     )]
-    #[Route('/games/{game}/moves', name: 'api_move_action', methods: ['POST'])]
+    #[Route('/games/{game}/moves', name: 'app_move_action', methods: ['POST'])]
     public function __invoke(
         Game $game,
         #[MapRequestPayload]

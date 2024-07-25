@@ -37,7 +37,7 @@ class MoveController extends AbstractController
             ),
         ]
     )]
-    #[Route('/games/{game}/moves', name: 'api_moves', methods: ['GET'])]
+    #[Route('/games/{game}/moves', name: 'app_moves', methods: ['GET'])]
     public function index(Game $game): JsonResponse
     {
         $moves = $this->moveRepository->findBy([
@@ -76,7 +76,7 @@ class MoveController extends AbstractController
             ),
         ]
     )]
-    #[Route('/moves/{id}', name: 'api_move', methods: ['GET'])]
+    #[Route('/moves/{id}', name: 'app_move', methods: ['GET'])]
     public function show(Move $move): JsonResponse
     {
         return $this->json(

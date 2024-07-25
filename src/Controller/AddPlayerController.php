@@ -70,7 +70,7 @@ class AddPlayerController extends AbstractController
             ),
         ]
     )]
-    #[Route('/games/{game}/players', name: 'api_game_add_player', methods: ['PATCH'])]
+    #[Route('/games/{game}/players', name: 'app_game_add_player', methods: ['PATCH'])]
     public function __invoke(
         Game $game,
         #[MapRequestPayload]

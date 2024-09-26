@@ -15,17 +15,17 @@ class GameLevelEnumType extends Type
         return 'VARCHAR(255)';
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?GameLevelEnum
     {
         return !empty($value) ? GameLevelEnum::from($value) : null;
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         return $value instanceof GameLevelEnum ? $value->value : null;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }

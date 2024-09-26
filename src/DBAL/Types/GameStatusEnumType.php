@@ -15,17 +15,17 @@ class GameStatusEnumType extends Type
         return 'VARCHAR(255)';
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?GameStatusEnum
     {
         return !empty($value) ? GameStatusEnum::from($value) : null;
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         return $value instanceof GameStatusEnum ? $value->value : null;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }

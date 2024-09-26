@@ -57,7 +57,7 @@ jobs:
         run: simple-phpunit install
 
       - name: Run tests
-        run: simple-phpunit --coverage-text --stop-on-failure
+        run: simple-phpunit --no-coverage --stop-on-failure
         env:
             DATABASE_URL: postgres://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/app?charset=UTF-8
           

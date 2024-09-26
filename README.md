@@ -8,23 +8,14 @@ The first player to get three of their marks in a row (horizontally, vertically,
 
 ## Specifications
 
-The backend will be used by a frontend built by a separate team, but they have
-provided us with a set of product level requirements that we must meet, exposed as
-an API. The requirements are as follows:
-1. Need an endpoint to call to start a new game. The response should give me
-   some kind of ID for me to use in other endpoints calls to tell the backend what
-   game I am referring to.
-2. Need an endpoint to call to play a move in the game. The endpoint should take
-   as inputs the Game ID (from the first endpoint), a player number (either 1 or 2),
-   and the position of the move being played. The response should include a data
-   structure with the representation of the full board so that the UI can update
-   itself with the latest data on the server. The response should also include a flag
-   indicating whether someone has won the game or not and who that winner is if
-   so.
-3. The endpoint that handles moves being played should perform some basic
-   error handling to ensure the move is valid, and that it is the right players turn
-   (ie. a player cannot play two moves in a row, or place a piece on top of another
-   player’s piece)
+
+The backend system will serve a frontend application developed by a different team, but they have shared a set of product-level requirements that we need to implement through an API. These key requirements are as follows:
+
+1. There should be an endpoint to initiate a new game. The response must return a unique identifier for that game, which will be used in subsequent requests to reference it.
+
+2. Another endpoint is required for making a move within the game. This endpoint should accept the Game ID (from the first endpoint), a player identifier (either player 1 or 2), and the move's position. The response should provide a full representation of the current game board so the UI can reflect the latest server state. Additionally, it should include a status indicating if there is a winner, and if so, which player won.
+
+3. The endpoint handling moves should incorporate basic validation to ensure moves are legitimate, such as confirming it’s the correct player’s turn and that the move is within the allowed parameters (e.g., no playing two consecutive turns or placing pieces on top of existing ones).
 
 ## Installation
 ```bash

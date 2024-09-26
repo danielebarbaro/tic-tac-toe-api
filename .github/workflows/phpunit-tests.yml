@@ -1,0 +1,63 @@
+name: Run Symfony Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app_test
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, intl, pdo_pgsql, pgsql, ctype, iconv
+          tools: phpunit-bridge
+          coverage: xdebug
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+
+#      - name: List Installed Dependencies
+#        run: composer show -D
+
+      - name: Install Symfony CLI
+        run: |
+          curl -sS https://get.symfony.com/cli/installer | bash
+          sudo mv ~/.symfony*/bin/symfony /usr/local/bin/symfony
+
+      - name: Check Symfony console version
+        run: symfony console -V
+        
+      - name: Symfony Migrate
+        run: symfony console doctrine:migration:migrate --no-interaction
+        env:
+          DATABASE_URL: postgres://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/app_test?charset=UTF-8
+
+      - name: Install PHPUnit
+        run: simple-phpunit install
+
+      - name: Run tests
+        run: simple-phpunit --coverage-text --stop-on-failure
+        env:
+            DATABASE_URL: postgres://postgres:postgres@127.0.0.1:${{ job.services.postgres.ports[5432] }}/app?charset=UTF-8
+          

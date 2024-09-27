@@ -33,6 +33,15 @@ jobs:
           extensions: mbstring, intl, pdo_pgsql, pgsql, ctype, iconv
           tools: phpunit-bridge
           coverage: xdebug
+          
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo APP_ENV=dev >> .env
+          echo APP_SECRET="7c137fdcf19580f9DUMMYf120d6c5ccb1343d" >> .env
+          echo DATABASE_URL="postgres://postgres:postgres@127.0.0.1:5432/app?charset=UTF-8" >> .env
+          echo CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+          cat .env    
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader

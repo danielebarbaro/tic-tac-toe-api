@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Enum\GameLevelEnum;
 use App\Enum\GameStatusEnum;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use DateTimeImmutable;
 
 class GameTest extends KernelTestCase
 {
@@ -18,7 +19,7 @@ class GameTest extends KernelTestCase
         $this->assertSame(GameStatusEnum::NEW, $game->getStatus());
         $this->assertSame(2, $game->getPlayers());
         $this->assertSame([0, 0, 0, 0, 0, 0, 0, 0, 0], $game->getBoard());
-        $this->assertInstanceOf(\DateTimeImmutable::class, $game->getCreatedAt());
+        $this->assertInstanceOf(DateTimeImmutable::class, $game->getCreatedAt());
     }
 
     public function testGameCannotBePlayedWhenStatusIsNotOngoing(): void

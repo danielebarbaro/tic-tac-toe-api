@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\Move;
 use App\Enum\GamePlayerEnum;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use DateTimeImmutable;
 
 class MoveTest extends KernelTestCase
 {
@@ -16,6 +17,6 @@ class MoveTest extends KernelTestCase
         $this->assertSame(GamePlayerEnum::PLAYER_ONE, $move->getPlayer());
         $this->assertSame(1, $move->getPosition());
         $this->assertInstanceOf(Game::class, $move->getGame());
-        $this->assertInstanceOf(\DateTimeImmutable::class, $move->getCreatedAt());
+        $this->assertInstanceOf(DateTimeImmutable::class, $move->getCreatedAt());
     }
 }

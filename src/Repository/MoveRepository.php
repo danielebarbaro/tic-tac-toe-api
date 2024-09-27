@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Game;
 use App\Entity\Move;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

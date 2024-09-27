@@ -4,20 +4,18 @@ namespace App\Tests\Unit\EventListener;
 
 use App\EventListener\ExceptionListener;
 use App\Exception\GameFinishedException;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Validator\Exception\ValidationFailedException;
+use Throwable;
 
 class ExceptionListenerTest extends WebTestCase
 {
-    private function createExceptionEvent(\Throwable $exception): ExceptionEvent
+    private function createExceptionEvent(Throwable $exception): ExceptionEvent
     {
         $kernel = $this->createMock(HttpKernelInterface::class);
         $request = new Request();

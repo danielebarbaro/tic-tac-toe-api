@@ -1,0 +1,15 @@
+parameters:
+    ignoreErrors:
+        - '#Property .+::\$id is never written, only read.#'
+        - '#Access to an undefined property Symfony\\Component\\Validator\\Constraint::\$message#'
+        - '#Property .+ is unused#'
+        - '#Property .+ is never read, only written#'
+
+    level: 5
+
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/

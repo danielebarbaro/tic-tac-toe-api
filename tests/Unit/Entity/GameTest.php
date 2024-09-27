@@ -18,6 +18,7 @@ class GameTest extends KernelTestCase
         $this->assertSame(GameStatusEnum::NEW, $game->getStatus());
         $this->assertSame(2, $game->getPlayers());
         $this->assertSame([0, 0, 0, 0, 0, 0, 0, 0, 0], $game->getBoard());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $game->getCreatedAt());
     }
 
     public function testGameCannotBePlayedWhenStatusIsNotOngoing(): void
@@ -44,5 +45,14 @@ class GameTest extends KernelTestCase
         $board[4] = 0;
         $game->setBoard($board);
         $this->assertFalse($game->isBoardFull());
+    }
+
+    public function testSetLevelWhenGameIsNew(): void
+    {
+        $game = new Game(2);
+
+        $game->setLevel(GameLevelEnum::GOOD);
+        $this->assertFalse($game->isBoardFull());
+        $this->assertSame(GameLevelEnum::GOOD, $game->getLevel());
     }
 }

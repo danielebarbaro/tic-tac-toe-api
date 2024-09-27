@@ -16,5 +16,6 @@ class MoveTest extends KernelTestCase
         $this->assertSame(GamePlayerEnum::PLAYER_ONE, $move->getPlayer());
         $this->assertSame(1, $move->getPosition());
         $this->assertInstanceOf(Game::class, $move->getGame());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $move->getCreatedAt());
     }
 }

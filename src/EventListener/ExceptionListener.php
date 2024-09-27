@@ -26,11 +26,7 @@ class ExceptionListener
         switch ($exception) {
             case $exception instanceof GameFinishedException:
             case $exception instanceof HttpExceptionInterface:
-                $statusCode = $exception->getStatusCode();
-                $message = $exception->getMessage();
-                break;
-            case $exception instanceof NotFoundHttpException:
-                $statusCode = Response::HTTP_NOT_FOUND;
+                $statusCode = $exception->getStatusCode() ?? Response::HTTP_NOT_FOUND;
                 $message = $exception->getMessage();
                 break;
             case $exception instanceof ValidationFailedException:

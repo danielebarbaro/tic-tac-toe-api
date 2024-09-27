@@ -260,27 +260,27 @@ class Game
         return $this->moves;
     }
 
-    public function addMove(Move $move): static
-    {
-        if (!$this->moves->contains($move)) {
-            $this->moves->add($move);
-            $move->setGame($this);
-        }
+//    public function addMove(Move $move): static
+//    {
+//        if (!$this->moves->contains($move)) {
+//            $this->moves->add($move);
+//            $move->setGame($this);
+//        }
+//
+//        return $this;
+//    }
 
-        return $this;
-    }
-
-    public function removeMove(Move $move): static
-    {
-        if ($this->moves->removeElement($move)) {
-            // set the owning side to null (unless already changed)
-            if ($move->getGame() === $this) {
-                $move->setGame(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function removeMove(Move $move): static
+//    {
+//        if ($this->moves->removeElement($move)) {
+//            // set the owning side to null (unless already changed)
+//            if ($move->getGame() === $this) {
+//                $move->setGame(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     public function canPlay(): bool
     {

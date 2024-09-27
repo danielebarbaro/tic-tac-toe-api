@@ -2,10 +2,12 @@
 
 namespace App\Dto;
 
+use App\Entity\Game;
 use App\Enum\GameLevelEnum;
 use App\Enum\GamePlayerEnum;
 use App\Enum\GameStatusEnum;
 use App\Validator\CheckPlayerUpdate;
+use DateTimeImmutable;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,8 +38,8 @@ final class GameDto
 
     #[Assert\NotNull]
     #[Assert\Count(
-        min: self::BOARD_SIZE,
-        max: self::BOARD_SIZE
+        min: Game::BOARD_SIZE,
+        max: Game::BOARD_SIZE
     )]
     #[Groups(['game:read'])]
     private array $board = [];
